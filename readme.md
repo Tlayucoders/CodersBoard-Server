@@ -21,10 +21,10 @@ Board to track people from online algorithms judges like UVA Online Judge and CO
    $ npm install
    ```
 
-3. Copy the default environment file *config/system_variables_example.json* and rename it to *system_variables.json* in the config directory, and change the values of the variables if is necessary.
+3. Copy the default environment file *.env-example* and rename it to *.env* in the root directory, and change the values of the variables if is necessary.
 
     ```shell
-    $ cp config/system_variables_example.json config/system_variables.json
+    $ cp .env-example .env
     ```
 
 4. Run de app
