@@ -1,0 +1,32 @@
+{
+  "name": "codersBoard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "esau.opr@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run babel-node ./index.js",
+    "develop": "nodemon --exec npm run babel-node ./index.js",
+    "babel-node": "babel-node --ignore='node_modules'",
+    "build": "babel . --out-dir dist --ignore node_modules,.git,.gitignore --source-maps --copy-files"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": []
+  },
+  "dependencies": {
+    "install": "^0.8.7",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.1.0",
+    "koa-jwt": "^3.0.0",
+    "koa-router": "^7.0.0",
+    "mongoose": "^4.9.0",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-env": "^1.2.2"
+  }
+}
