@@ -1,0 +1,10 @@
+{
+    "app_name": "CodersBoard",
+    "app_url": "",
+    "port": 3000,
+
+    "mongodb_uri": "mongodb://localhost:27017/codersboard",
+    "mongodb_user": "",
+    "mongodb_password": "",
+    "mongodb_debug": true
+}
