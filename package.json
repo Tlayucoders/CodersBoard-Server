@@ -8,16 +8,18 @@
     "start": "npm run babel-node ./index.js",
     "develop": "nodemon --exec npm run babel-node ./index.js",
     "babel-node": "babel-node --ignore='node_modules'",
-    "build": "babel . --out-dir dist --ignore node_modules,.git,.gitignore --source-maps --copy-files"
+    "build": "babel . --out-dir dist --ignore node_modules,dist,storage,.git,.gitignore --source-maps --copy-files"
   },
   "babel": {
     "presets": [
       "env"
     ],
-    "plugins": []
+    "plugins": [
+      "transform-runtime"
+    ]
   },
   "dependencies": {
-    "install": "^0.8.7",
+    "dotenv": "^4.0.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.1.0",
     "koa-jwt": "^3.0.0",
@@ -28,7 +30,9 @@
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-eslint": "6",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.2.2",
-    "eslint": "3.x"
+    "eslint": "3.x",
+    "nodemon": "^1.11.0"
   }
 }

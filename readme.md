@@ -29,6 +29,35 @@ Board to track people from online algorithms judges like UVA Online Judge and CO
 
 4. Run de app
 
+   **Development**
+
    ```shell
    $ npm run start
    ```
+   **Development** (with nodemon)
+
+   ```shell
+   $ npm run develop
+   ```
+
+   **Production**
+
+   Compile the app with babel
+
+   ```shell
+   $ npm run build
+   ```
+
+   Create necessary subdirectories
+
+   ```shell
+   $ mkdir -p dist/storage/logs
+   ```
+
+   Run the app
+
+   ```shell
+   $ node dist/index.js
+   ```
+
+   ​
