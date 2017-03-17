@@ -9,7 +9,7 @@ import Dotenv from 'dotenv'; Dotenv.config();
 import { init } from './app/system/mongoose';
 
 /**
- * Load init koa funtion
+ * Load init koa function
  */
 import koa from './app/system/koa';
 
