@@ -65,12 +65,19 @@ bower_components
 # --------------------
 # Config Files
 # --------------------
-config/system_variables.json
+.env
 
 # --------------------
 # Storage Files
 # --------------------
 storage/
+
+# --------------------
+# Public files
+# --------------------
+public/img/
+public/css/
+public/js/
 
 # --------------------
 # Other Files
@@ -83,6 +90,7 @@ storage/
 *~
 *.swp
 *.swo
+
 # --------------------
 # Yarn files
 # --------------------
