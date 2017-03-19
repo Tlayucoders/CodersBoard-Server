@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CodersBoard</title>
+    <%- include('../partials/styles.html'); %>
+</head>
+<body>
+    <v-app id="app" top-toolbar left-fixed-sidebar>
+        <%- include('../partials/header.html'); %>
+		<main>
+			<v-content>
+				<v-container fluid>
+					<div class="title">Main Content</div>
+				</v-container>
+			</v-content>
+		</main>
+        <%- include('../partials/footer.html'); %>
+	</v-app>
+    <%- include('../partials/scripts.html'); %>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<v-toolbar class="purple">
+    <v-toolbar-side-icon @click.native.stop="nav3 = !nav3">
+    </v-toolbar-side-icon>
+    <v-toolbar-title class="hidden-sm-and-down">Toolbar</v-toolbar-title>
+    <v-toolbar-items>
+        <v-toolbar-item>Home</v-toolbar-item>
+        <v-toolbar-item>Contact</v-toolbar-item>
+        <v-menu bottom left offset-y origin="top right" transition="v-slide-y-transition">
+            <v-btn icon dark slot="activator">
+                <v-icon>more_vert</v-icon>
+            </v-btn>
+            <v-list>
+                <v-list-item v-for="item in dropdown_items">
+                    <v-list-tile>
+                        <v-list-tile-title v-text="item.title"></v-list-tile-title>
+                    </v-list-tile>
+                </v-list-item>
+            </v-list>
+        </v-menu>
+    </v-toolbar-items>
+</v-toolbar>
