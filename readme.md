@@ -48,12 +48,6 @@ Board to track people from online algorithms judges like UVA Online Judge and CO
    $ npm run build
    ```
 
-   Create necessary subdirectories
-
-   ```shell
-   $ mkdir -p dist/storage/logs
-   ```
-
    Run the app
 
    ```shell

@@ -68,18 +68,6 @@ bower_components
 .env
 
 # --------------------
-# Storage Files
-# --------------------
-storage/
-
-# --------------------
-# Public files
-# --------------------
-public/img/
-public/css/
-public/js/
-
-# --------------------
 # Other Files
 # --------------------
 *.tar
