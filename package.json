@@ -24,6 +24,7 @@
     "koa-bodyparser": "^4.1.0",
     "koa-jwt": "^3.0.0",
     "koa-router": "^7.0.0",
+    "koa-static": "^3.0.0",
     "mongoose": "^4.9.0",
     "winston": "^2.3.1"
   },
@@ -33,6 +34,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.2.2",
     "eslint": "3.x",
+    "koa-ejs": "^4.0.0",
     "nodemon": "^1.11.0"
   }
 }
