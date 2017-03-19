@@ -1,6 +1,9 @@
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import koaBodyParser from 'koa-bodyparser';
+import serve from 'koa-static';
+import render from 'koa-ejs';
+import path from 'path';
 
 import loader from './../../utils/fileLoader';
 import Logger from './../../utils/logger';
@@ -21,6 +24,19 @@ function loadRoutes(router, callback) {
 function init() {
     const app = new Koa();
     const router = new KoaRouter();
+
+    render(app, {
+        root: path.join(__dirname, '../../resources/views'),
+        layout: 'templates/main',
+        viewExt: 'html',
+        cache: false,
+        debug: true
+    });
+
+    // Expose public files
+    const publicDir = __dirname + '/../../public';
+    logger.info('Exposing public directory:', publicDir);
+    app.use(serve(publicDir));
 
     // Log every incoming request
     app.use(async (ctx, next) => {
