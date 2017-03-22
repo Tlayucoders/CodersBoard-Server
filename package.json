@@ -9,8 +9,11 @@
     "develop": "nodemon --exec npm run babel-node ./index.js",
     "babel-node": "babel-node --ignore='node_modules'",
     "build": "babel . --out-dir dist --ignore node_modules,dist,storage,.git,.gitignore --source-maps --copy-files",
-    "dev": "gulp stylus",
-    "watch": "gulp watch"
+    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "gulpdev": "gulp build",
+    "gulpwatch": "gulp watch"
   },
   "babel": {
     "presets": [
@@ -23,6 +26,7 @@
   "dependencies": {
     "cross-env": "^3.2.4",
     "dotenv": "^4.0.0",
+    "font-awesome": "^4.7.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.1.0",
     "koa-jwt": "^3.0.0",
@@ -48,6 +52,7 @@
     "gulp-sourcemaps": "^2.4.1",
     "gulp-stylus": "^2.6.0",
     "koa-ejs": "^4.0.0",
+    "laravel-mix": "^0.8.9",
     "nodemon": "^1.11.0",
     "rollup": "^0.41.6",
     "rollup-plugin-alias": "^1.2.1",
@@ -55,6 +60,8 @@
     "rollup-plugin-multi-entry": "^2.0.1",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-replace": "^1.1.1",
-    "rollup-plugin-typescript": "^0.8.1"
+    "rollup-plugin-typescript": "^0.8.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1"
   }
 }

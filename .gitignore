@@ -83,3 +83,8 @@ bower_components
 # Yarn files
 # --------------------
 yarn.lock
+
+# --------------------
+# Webapack
+# --------------------
+mix-manifest.json
