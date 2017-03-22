@@ -27,7 +27,49 @@ Board to track people from online algorithms judges like UVA Online Judge and CO
     $ cp .env-example .env
     ```
 
-4. Run de app
+4. Building assets
+
+To make the building tasks easy the project include [laravel-mix](https://github.com/JeffreyWay/laravel-mix), see the [documentation](https://github.com/JeffreyWay/laravel-mix) to learn how to use. All the task are registred in *webpack.mix.js* file.
+
+- In develop mode
+
+```shell
+$ npm run dev
+```
+
+- To rebuild when the files change
+
+```shell
+$ npm run watch
+```
+
+- In production mode
+
+```
+$ npm run production
+```
+
+Also the project provide a single way to build (under development) using [gulp](http://gulpjs.com/) and [rollup](http://rollupjs.org/) in case that you don't want to use *laravel-mix*. All the task are registred in *gulpfile.js* file.
+
+- In develop mode
+
+```shell
+$ npm run gdev
+```
+
+- To rebuild when the files change
+
+```shell
+$ npm run gwatch
+```
+
+- In production mode
+
+```shell
+$ npm run gprod
+```
+
+5. Run de app
 
    **Development**
 
