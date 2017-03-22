@@ -10,7 +10,7 @@
                 <v-icon>more_vert</v-icon>
             </v-btn>
             <v-list>
-                <v-list-item v-for="item in dropdown_items">
+                <v-list-item v-for="item in dropdown_items" :key="item.title">
                     <v-list-tile>
                         <v-list-tile-title v-text="item.title"></v-list-tile-title>
                     </v-list-tile>

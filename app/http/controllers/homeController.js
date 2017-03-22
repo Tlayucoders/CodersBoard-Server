@@ -1,6 +1,6 @@
 async function index(ctx) {
-    // await ctx.render('templates/main');
-    await ctx.render('pages/home');
+    await ctx.render('templates/main');
+    //await ctx.render('pages/home');
 }
 
 module.exports = {
