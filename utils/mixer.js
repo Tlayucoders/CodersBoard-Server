@@ -28,7 +28,7 @@ class Mix {
             return rollup.rollup({
                 entry: input,
                 plugins: [
-                    resolve(),
+                    resolve({preferBuiltins: false}),
                     multiEntry(),
                     rollupPluginCommonjs(),
                     rollupPluginVue(),
