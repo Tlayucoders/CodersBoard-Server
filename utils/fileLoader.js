@@ -12,7 +12,7 @@ function loader(path, callback) {
                 callback(newPath, stat);
             }
         } else if (stat.isDirectory()) {
-            loader(newPath);
+            loader(newPath, callback);
         }
     });
 }
