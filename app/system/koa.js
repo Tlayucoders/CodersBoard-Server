@@ -10,6 +10,9 @@ import Logger from './../../utils/logger';
 
 const logger = new Logger();
 
+/**
+ * Load all the route files in the directory routes
+ */
 function loadRoutes(router, callback) {
     // Load URLs
     const routesPath = `${__dirname}/../../routes`;
@@ -21,10 +24,17 @@ function loadRoutes(router, callback) {
     if (callback) callback(router);
 }
 
+/**
+ * Initialize the Koa application
+ */
 function init() {
     const app = new Koa();
     const router = new KoaRouter();
 
+    // Logger instance available from the context
+    app.context.logger = logger;
+
+    // Definition of ejs view rendering
     render(app, {
         root: path.join(__dirname, '../../resources/views'),
         layout: 'templates/main',
