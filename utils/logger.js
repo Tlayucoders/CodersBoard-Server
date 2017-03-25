@@ -1,5 +1,5 @@
-import winston from 'winston';
-import moment from 'moment';
+const winston = require('winston');
+const moment = require('moment');
 
 /**
  * Provides a singleton for a logger.
