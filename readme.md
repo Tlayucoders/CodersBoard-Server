@@ -27,7 +27,13 @@ Board to track people from online algorithms judges like UVA Online Judge and CO
     $ cp .env-example .env
     ```
 
-4. Building assets
+4. Generate Application token
+
+    ```shell
+    $ npm run token
+    ```
+
+5. Building assets
 
 To make the building tasks easy the project include [laravel-mix](https://github.com/JeffreyWay/laravel-mix), see the [documentation](https://github.com/JeffreyWay/laravel-mix) to learn how to use. All the task are registred in *webpack.mix.js* file.
 
@@ -69,7 +75,7 @@ Also the project provide a single way to build (under development) using [gulp](
     $ npm run gprod
     ```
 
-5. Run de app
+6. Run de app
 
    **Development**
 
