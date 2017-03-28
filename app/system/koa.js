@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import koaBodyParser from 'koa-bodyparser';
+import cors from 'kcors';
 import serve from 'koa-static';
 import render from 'koa-ejs';
 import path from 'path';
@@ -34,6 +35,9 @@ function init() {
     // Logger instance available from the context
     app.context.logger = logger;
 
+    // Cross-Origin Resource Sharing(CORS)
+    app.use(cors());
+
     // Definition of ejs view rendering
     render(app, {
         root: path.join(__dirname, '../../resources/views'),
@@ -48,18 +52,21 @@ function init() {
     logger.info('Exposing public directory:', publicDir);
     app.use(serve(publicDir));
 
-    // Log every incoming request
-    app.use(async (ctx, next) => {
-        logger.info(`${ctx.method} ${ctx.url}`);
-        await next();
-    });
-
-    // Log every response
-    app.use(async (ctx, next) => {
+    // x-response-time
+    app.use(async function (ctx, next) {
         const start = new Date();
         await next();
-        const ms = new Date().getTime() - start.getTime();
-        logger.info(`${ctx.method} ${ctx.url} ${ms} ms`);
+        const ms = new Date() - start;
+        ctx.set('X-Response-Time', `${ms}ms`);
+        logger.info(`X-Response-Time: ${ms}ms`);
+    });
+
+    // Logger
+    app.use(async function (ctx, next) {
+        const start = new Date();
+        await next();
+        const ms = new Date() - start;
+        logger.info(`${ctx.method} ${ctx.url} - ${ms}`);
     });
 
     app.use(koaBodyParser());
