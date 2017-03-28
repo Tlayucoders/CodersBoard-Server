@@ -2,7 +2,7 @@ import User from '../../../../models/user';
 
 async function fetch(ctx) {
     try {
-        const users = await User.find();
+        const users = await User.exclude('password').find();
         ctx.body = {
             data: {
                 users: JSON.parse(JSON.stringify(users))
