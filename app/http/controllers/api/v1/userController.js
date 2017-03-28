@@ -10,7 +10,7 @@ async function fetch(ctx) {
         };
     } catch (e) {
         ctx.logger.info(e);
-        ctx.throw(404);
+        ctx.throw(404, e);
     }
 }
 
