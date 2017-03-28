@@ -6,7 +6,7 @@ import Dotenv from 'dotenv'; Dotenv.config();
 /**
  * laod init db function
  */
-import { init } from './app/system/mongoose';
+import { init } from './app/system/mongorito';
 
 /**
  * Load init koa function
