@@ -7,7 +7,10 @@ import sha256 from '../../../../utils/sha256';
  */
 async function login(ctx) {
     try {
-        const user = await User.where('email', ctx.request.body.email)
+        const user = await User.exclude('password')
+            .exclude('created_at')
+            .exclude('updated_at')
+            .where('email', ctx.request.body.email)
             .where('password', sha256(ctx.request.body.password))
             .find();
 
