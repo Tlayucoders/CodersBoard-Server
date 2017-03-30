@@ -88,3 +88,9 @@ yarn.lock
 # Webapack
 # --------------------
 mix-manifest.json
+
+# --------------------
+# apidoc
+# --------------------
+apidoc
+
