@@ -109,4 +109,3 @@ Generate de Api documentation
     $ npm run docs
     ```
 
-   ​
