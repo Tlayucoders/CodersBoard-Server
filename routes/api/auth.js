@@ -1,5 +1,5 @@
-import LoginController from '../app/http/controllers/auth/loginController';
-import RegisterController from '../app/http/controllers/auth/registerController';
+import LoginController from '../../app/http/controllers/auth/loginController';
+import RegisterController from '../../app/http/controllers/auth/registerController';
 
 function routeSetter(router) {
     router.post('/login', LoginController.login);
