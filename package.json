@@ -48,6 +48,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "apidoc": "^0.17.5",
     "babel-cli": "^6.24.0",
     "babel-eslint": "6",
     "babel-plugin-transform-runtime": "^6.23.0",
