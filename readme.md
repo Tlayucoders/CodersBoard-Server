@@ -102,4 +102,11 @@ Also the project provide a single way to build (under development) using [gulp](
    $ node dist/index.js
    ```
 
+### API documentation
+Generate de Api documentation
+
+    ```shell
+    $ npm run docs
+    ```
+
    ​

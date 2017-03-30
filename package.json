@@ -15,7 +15,8 @@
     "gdev": "cross-env NODE_ENV=development gulp build",
     "gwatch": "cross-env NODE_ENV=development gulp watch",
     "gprod": "cross-env NODE_ENV=production gulp build",
-    "token": "node ./utils/tokenGenerator.js"
+    "token": "node ./utils/tokenGenerator.js",
+    "docs": "apidoc -i ./app/http/controllers -o ./apidoc/"
   },
   "babel": {
     "presets": [
