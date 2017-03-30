@@ -103,10 +103,8 @@ Also the project provide a single way to build (under development) using [gulp](
    ```
 
 ### API documentation
-Generate de Api documentation
+- Generate de Api documentation
 
     ```shell
     $ npm run docs
     ```
-
-   ​
