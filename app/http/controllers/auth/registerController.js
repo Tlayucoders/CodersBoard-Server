@@ -7,7 +7,7 @@ async function register(ctx) {
             name: ctx.request.body.name || '',
             lastname: ctx.request.body.lastname  || '',
             email: ctx.request.body.email || '',
-            password: sha256(ctx.request.body.password)  || ''
+            password: (ctx.request.body.password)? sha256(ctx.request.body.password) : ''
         });
 
         await user.save();
