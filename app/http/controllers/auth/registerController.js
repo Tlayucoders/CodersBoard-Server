@@ -4,10 +4,11 @@ import sha256 from '../../../../utils/sha256';
 async function register(ctx) {
     try {
         let user = new User({
-            name: ctx.request.body.name || '',
-            lastname: ctx.request.body.lastname  || '',
-            email: ctx.request.body.email || '',
-            password: (ctx.request.body.password)? sha256(ctx.request.body.password) : ''
+            name: ctx.request.body.name,
+            lastname: ctx.request.body.lastname,
+            email: ctx.request.body.email,
+            password: (ctx.request.body.password && ctx.request.body.password.length > 5)?
+                sha256(ctx.request.body.password) : ctx.request.body.password
         });
 
         await user.save();

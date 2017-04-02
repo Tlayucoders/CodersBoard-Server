@@ -26,7 +26,7 @@ class User extends Model {
                 name: {type: 'string', minLength: 1},
                 lastname: {type: 'string', minLength: 1},
                 email: {type: 'string', format: 'email', minLength: 1},
-                password: {type: 'string', minLength: 1},
+                password: {type: 'string', minLength: 6},
                 verification_token: {type: 'string', minLength: 1 },
                 is_active: {type: 'boolean'},
                 social_accounts: {
