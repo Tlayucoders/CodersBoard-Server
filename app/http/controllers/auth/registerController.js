@@ -4,14 +4,13 @@ import sha256 from '../../../../utils/sha256';
 async function register(ctx) {
     try {
         let user = new User({
-            name: ctx.request.body.name,
-            lastname: ctx.request.body.lastname,
-            email: ctx.request.body.email,
-            password: sha256(ctx.request.body.password)
+            name: ctx.request.body.name || '',
+            lastname: ctx.request.body.lastname  || '',
+            email: ctx.request.body.email || '',
+            password: sha256(ctx.request.body.password)  || ''
         });
 
         await user.save();
-
         user = JSON.parse(JSON.stringify(user));
         delete user.password;
 
