@@ -27,6 +27,7 @@
     ]
   },
   "dependencies": {
+    "ajv": "^4.11.5",
     "cross-env": "^3.2.4",
     "dotenv": "^4.0.0",
     "font-awesome": "^4.7.0",
