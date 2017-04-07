@@ -6,9 +6,9 @@ import User from '../../../../models/user';
  * @apiGroup User
  *
  * @apiSuccess  {Object[]}  Users               List fo users
- * æapiSuccess  {String}    Users._id           User._id
- * @apiSuccess  {String}    Users.name          Name of the User
- * @apiSuccess  {String}    Users.lastname      lastname of the User
+ * @apiSuccess  {String}    Users._id           User id
+ * @apiSuccess  {String}    Users.name          User name
+ * @apiSuccess  {String}    Users.lastname      User lastname
  * @apiSuccess  {String}    Users.created_at    Date of user registration
  * @apiSuccess  {String}    Users.updated_at    Date of last user information update
  *

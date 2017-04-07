@@ -3,8 +3,6 @@ import KoaRouter from 'koa-router';
 import koaBodyParser from 'koa-bodyparser';
 import cors from 'kcors';
 import serve from 'koa-static';
-import render from 'koa-ejs';
-import path from 'path';
 
 import loader from './../../utils/fileLoader';
 import Logger from './../../utils/logger';
@@ -37,15 +35,6 @@ function init() {
 
     // Cross-Origin Resource Sharing(CORS)
     app.use(cors());
-
-    // Definition of ejs view rendering
-    render(app, {
-        root: path.join(__dirname, '../../resources/views'),
-        layout: 'templates/main',
-        viewExt: 'html',
-        cache: false,
-        debug: true
-    });
 
     // Expose public files
     const publicDir = __dirname + '/../../public';
