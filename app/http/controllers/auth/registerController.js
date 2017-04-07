@@ -23,6 +23,7 @@ async function register(ctx) {
             }
         };
     } catch (e) {
+        ctx.logger.error(e);
         ctx.throw(422, e);
     }
 }

@@ -25,6 +25,7 @@ async function login(ctx) {
         };
         ctx.message = 'User logged';
     } catch (e) {
+        ctx.logger.error(e);
         ctx.throw(404, e);
     }
 }
