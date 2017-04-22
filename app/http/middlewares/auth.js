@@ -7,12 +7,14 @@ async function auth(ctx, next) {
     const access_token = ctx.request.body.access_token || ctx.headers['x-access-token'] || '';
 
     try {
-        jwt.verify(access_token, process.env.APP_TOKEN);
-        await next();
-    } catch(err) {
-        ctx.status = 403;
-        ctx.message = 'Forbidden resource';
+        const decoded = jwt.verify(access_token, process.env.APP_TOKEN);
+        ctx.app.context.user = decoded.user;
+    } catch (e) {
+        ctx.logger.error(e);
+        ctx.throw(403,'Forbidden resource');
     }
+
+    await next();
 }
 
 module.exports = auth;
