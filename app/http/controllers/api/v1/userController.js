@@ -1,31 +1,31 @@
 import User from '../../../../models/user';
 
 /**
- * @api {get} /users Request Users information
- * @apiName GetUsera
+ * @api {get} /api/v1/users Request users information
+ * @apiName GetUsers
  * @apiGroup User
  *
- * @apiSuccess  {Object[]}  Users               List fo users
- * @apiSuccess  {String}    Users._id           User id
- * @apiSuccess  {String}    Users.name          User name
- * @apiSuccess  {String}    Users.lastname      User lastname
- * @apiSuccess  {String}    Users.created_at    Date of user registration
- * @apiSuccess  {String}    Users.updated_at    Date of last user information update
+ * @apiSuccess  {Object}    data                     Response data
+ * @apiSuccess  {Object[]}  data.users               List fo users
+ * @apiSuccess  {String}    data.users._id           User id
+ * @apiSuccess  {String}    data.users.name          User name
+ * @apiSuccess  {String}    data.users.lastname      User lastname
+ * @apiSuccess  {String}    data.users.created_at    Date of user registration
+ * @apiSuccess  {String}    data.users.updated_at    Date of last user information update
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
  *          "data": {
- *
-        	   "users": [
-        			{
-        				"_id": "58d8b70c4a9f312d045bff35",
-        				"name": "Esaú",
-        				"lastname": "Peralta",
-        				"created_at": "2017-03-27T06:54:04.318Z",
-        				"updated_at": "2017-03-27T06:54:04.318Z"
-        			}
-                ]
+ *        	   "users": [
+ *        			{
+ *        				"_id": "58d8b70c4a9f312d045bff35",
+ *        				"name": "John",
+ *        				"lastname": "McTim",
+ *        				"created_at": "2017-03-27T06:54:04.318Z",
+ *        				"updated_at": "2017-03-27T06:54:04.318Z"
+ *        			}
+ *              ]
  *          }
  *     }
  *
