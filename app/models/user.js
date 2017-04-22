@@ -13,8 +13,8 @@ const ajv = new Ajv({ removeAdditional: true });
 class User extends Model {
     configure () {
         this.setSchema();
-        this.before('create', 'validate');
-        this.before('update', 'validate');
+        // this.before('create', 'validate');
+        // this.before('update', 'validate');
         this.before('save', 'validate');
         this.before('create', 'checkIfExists');
     }
@@ -29,6 +29,7 @@ class User extends Model {
                 password: {type: 'string', minLength: 6},
                 verification_token: {type: 'string', minLength: 1 },
                 is_active: {type: 'boolean'},
+                registration_step: {type: 'number'},
                 social_accounts: {
                     type: 'array',
                     uniqueItems: true,
@@ -48,10 +49,15 @@ class User extends Model {
                         type: 'object',
                         additionalProperties: false,
                         properties: {
-                            user_id: {type: 'string'},
-                            username: {type: 'string'},
-                            judge_id: {type: 'string'}
-                        }
+                            user_id: {type: 'string', minLength: 1},
+                            username: {type: 'string', minLength: 1},
+                            judge_id: {type: 'string', minLength: 1}
+                        },
+                        required: [
+                            'user_id',
+                            'username',
+                            'judge_id'
+                        ]
                     }
                 }
             },
@@ -65,7 +71,7 @@ class User extends Model {
     }
 
     async validate(next) {
-        const valid = ajv.validate(this.schema, this.attributes);
+        const valid = ajv.validate(this.schema, JSON.parse(JSON.stringify(this.attributes)));
 
         if (!valid) {
             logger.warn(ajv.errorsText());
