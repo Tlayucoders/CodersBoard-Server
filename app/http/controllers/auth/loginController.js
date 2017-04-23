@@ -7,6 +7,9 @@ import sha256 from '../../../../utils/sha256';
  * @apiName UserLogin
  * @apiGroup User
  *
+ * @apiParam    {string}    email   User email
+ * @apiParam    {string}    password   User password
+ *
  * @apiSuccess  {Object}    data                Response data
  * @apiSuccess  {String}    data.access_token  User access token
  *

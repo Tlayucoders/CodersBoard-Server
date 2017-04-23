@@ -94,3 +94,7 @@ mix-manifest.json
 # --------------------
 apidoc
 
+# --------------------
+# public directory
+# --------------------
+public

@@ -6,6 +6,11 @@ import sha256 from '../../../../utils/sha256';
  * @apiName UserRegistration
  * @apiGroup User
  *
+ * @apiParam    {string}    name        User name
+ * @apiParam    {string}    lastname    User lastname
+ * @apiParam    {string}    email       User email
+ * @apiParam    {string}    password    User password
+ *
  * @apiSuccess  {Object}    data                     Response data
  * @apiSuccess  {Object[]}  data.users               List fo users
  * @apiSuccess  {String}    data.users._id           User id
@@ -67,6 +72,10 @@ async function register(ctx) {
   * @api {post} /register/link  Link a judge account
   * @apiName UserLink
   * @apiGroup User
+  *
+  * @apiParam    {string}    user_id    Id of the user registred in the Judge Online
+  * @apiParam    {string}    username   Username registred in the Judge Online
+  * @apiParam    {string}    judge_id   Id of the judge maped by this api
   *
   * @apiSuccess (204) {null} -
   *
