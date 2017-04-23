@@ -10,6 +10,7 @@
     "babel-node": "babel-node --ignore='node_modules'",
     "build": "babel . --out-dir dist --ignore node_modules,dist,storage,.git,.gitignore --source-maps --copy-files",
     "token": "node ./utils/tokenGenerator.js",
+    "dbseed": "npm run babel-node ./database/seeds/databaseSeeder.js",
     "docs": "apidoc -i ./app/http/controllers -o ./apidoc/"
   },
   "babel": {
