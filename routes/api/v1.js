@@ -4,6 +4,10 @@ import auth from '../../app/http/middlewares/auth';
 
 const API_PREFIX = '/api/v1';
 
+/**
+ * Set the routes defined inside
+ * @param {object}  router  koa router object
+ */
 function routeSetter(router) {
     // Users
     router.get(`${API_PREFIX}/users`, auth, UserController.fetch);

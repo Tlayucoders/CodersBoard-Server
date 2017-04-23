@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 
 /**
  * Middlewares for jwt authentication
+ * @param   {object}    ctx     Koa context object
+ * @param   {function}  next    Next middleware
  */
 async function auth(ctx, next) {
     const access_token = ctx.request.body.access_token || ctx.headers['x-access-token'] || '';

@@ -2,6 +2,10 @@ import LoginController from '../../app/http/controllers/auth/loginController';
 import RegisterController from '../../app/http/controllers/auth/registerController';
 import auth from '../../app/http/middlewares/auth';
 
+/**
+ * Set the routes defined inside
+ * @param {object}  router  koa router object
+ */
 function routeSetter(router) {
     router.post('/login', LoginController.login);
     router.post('/register', RegisterController.register);

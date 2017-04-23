@@ -5,6 +5,7 @@ import User from '../../../../models/user';
  * @apiName GetUsers
  * @apiGroup User
  *
+ * @apiParam    {String}    x-access-token  Access token. No required if this is included in the Headers
  * @apiSuccess  {Object}    data                     Response data
  * @apiSuccess  {Object[]}  data.users               List fo users
  * @apiSuccess  {String}    data.users._id           User id

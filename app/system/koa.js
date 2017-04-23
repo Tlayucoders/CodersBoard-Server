@@ -11,6 +11,8 @@ const logger = new Logger();
 
 /**
  * Load all the route files in the directory routes
+ * @param {object}      router      Koa router object
+ * @param {function}    callback    Callback function
  */
 function loadRoutes(router, callback) {
     // Load URLs

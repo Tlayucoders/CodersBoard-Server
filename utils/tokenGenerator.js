@@ -1,3 +1,7 @@
+/**
+ * Generate a token app and save it into env file
+ */
+
 const fs = require('fs');
 const crypto = require('crypto');
 const Logger = require('./logger');

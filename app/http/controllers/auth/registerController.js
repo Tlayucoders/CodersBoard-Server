@@ -6,10 +6,10 @@ import sha256 from '../../../../utils/sha256';
  * @apiName UserRegistration
  * @apiGroup User
  *
- * @apiParam    {string}    name        User name
- * @apiParam    {string}    lastname    User lastname
- * @apiParam    {string}    email       User email
- * @apiParam    {string}    password    User password
+ * @apiParam    {String}    name        User name
+ * @apiParam    {String}    lastname    User lastname
+ * @apiParam    {String}    email       User email
+ * @apiParam    {String}    password    User password
  *
  * @apiSuccess  {Object}    data                     Response data
  * @apiSuccess  {Object[]}  data.users               List fo users
@@ -73,6 +73,7 @@ async function register(ctx) {
   * @apiName UserLink
   * @apiGroup User
   *
+  * @apiParam    {String}    x-access-token  Access token. No required if this is included in the Headers
   * @apiParam    {string}    user_id    Id of the user registred in the Judge Online
   * @apiParam    {string}    username   Username registred in the Judge Online
   * @apiParam    {string}    judge_id   Id of the judge maped by this api

@@ -3,6 +3,10 @@ import Logger from './../../utils/logger';
 
 const logger = new Logger();
 
+/**
+ * Initialize the connection to the db
+ * @param {function} callback Callback function
+ */
 export function connect(callback) {
     mongorito.connect(process.env.MONGODB_URI)
         .then(() => {
@@ -15,7 +19,10 @@ export function connect(callback) {
         });
 }
 
-// Disconnect from DB
+/**
+ * Finalize the connection to the db
+ * @param {function} callback Callback function
+ */
 export function disconnect(callback) {
     mongorito.disconnect()
         .then(() => {
@@ -28,7 +35,10 @@ export function disconnect(callback) {
         });
 }
 
-// Initialize Mongoose
+/**
+ * Initialize the connection process
+ * @param {function} callback Callback function
+ */
 export function init(callback) {
     connect(() => {
         if (callback) callback();
