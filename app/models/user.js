@@ -1,10 +1,9 @@
 import mongorito from 'mongorito';
-import Ajv from 'ajv';
 import Logger from '../../utils/logger';
+import Joi from 'joi';
 
 const Model = mongorito.Model;
 const logger = new Logger();
-const ajv = new Ajv({ removeAdditional: true });
 
 
 /**
@@ -19,72 +18,60 @@ class User extends Model {
         this.before('create', 'checkIfExists');
     }
 
+    /**
+     * Model schema used to validations
+     */
     setSchema () {
-        this.schema = {
-            additionalProperties: false,
-            properties: {
-                name: {type: 'string', minLength: 1},
-                lastname: {type: 'string', minLength: 1},
-                email: {type: 'string', format: 'email', minLength: 1},
-                password: {type: 'string', minLength: 6},
-                verification_token: {type: 'string', minLength: 1 },
-                is_active: {type: 'boolean'},
-                registration_step: {type: 'number'},
-                social_accounts: {
-                    type: 'array',
-                    uniqueItems: true,
-                    items: {
-                        type: 'object',
-                        additionalProperties: false,
-                        properties: {
-                            provider_user_id : {type: 'string'},
-                            provider_id: {type: 'string'}
-                        }
-                    }
-                },
-                judge_users: {
-                    type: 'array',
-                    uniqueItems: true,
-                    items: {
-                        type: 'object',
-                        additionalProperties: false,
-                        properties: {
-                            user_id: {type: 'string', minLength: 1},
-                            username: {type: 'string', minLength: 1},
-                            judge_id: {type: 'string', minLength: 1}
-                        },
-                        required: [
-                            'user_id',
-                            'username',
-                            'judge_id'
-                        ]
-                    }
-                }
-            },
-            required: [
-                'name',
-                'lastname',
-                'email',
-                'password',
-            ]
-        };
+        this.schema = Joi.object().keys({
+            _id: Joi.string(),
+            name: Joi.string().trim().min(3).max(30).required(),
+            lastname: Joi.string().trim().min(3).max(30).required(),
+            email: Joi.string().trim().email().required(),
+            password: Joi.string().trim().min(6).required(),
+            verification_token: Joi.string(),
+            is_active: Joi.boolean(),
+            registration_step: Joi.number().integer().positive(),
+            social_accounts: Joi.array().items(Joi.object().keys({
+                _id: Joi.string(),
+                provider_user_id: Joi.string().trim().min(3).required(),
+                provider_id: Joi.string().trim().min(3).required()
+            })),
+            judge_users: Joi.array().items(Joi.object().keys({
+                _id: Joi.string(),
+                user_id: Joi.string().trim().min(3).required(),
+                username: Joi.string().trim().min(3).required(),
+                judge_id: Joi.string().trim().min(3).required(),
+            })),
+            created_at: [Joi.date(), Joi.string()],
+            updated_at: [Joi.date(), Joi.string()]
+        });
     }
 
+    /**
+     * Validate the record attributes throw a exception if is invalid
+     * @param {function} next callback function
+     */
     async validate(next) {
-        const valid = ajv.validate(this.schema, JSON.parse(JSON.stringify(this.attributes)));
-
-        if (!valid) {
-            logger.warn(ajv.errorsText());
-            throw new Error(ajv.errorsText());
+        const ans = Joi.validate(JSON.parse(JSON.stringify(this.attributes)), this.schema, {
+            convert: false
+        });
+        if (ans.error) {
+            logger.error(ans.error);
+            throw new Error(`${ans.error.name}:: ${ans.error.details[0].message}`);
         }
         await next;
     }
 
+    /**
+     * Validate the record attributes throw a exception if is invalid
+     * @param {function} next callback function
+     */
     async checkIfExists(next) {
-        const user = await User.where('email', this.attributes.email).find();
-        if (user.length) {
-            logger.warn('The user is already registred');
-            throw new Error('The user is already registred');
+        const user = await User.where('email', this.attributes.email).findOne();
+        if (user) {
+            const error = 'ValidationError:: The user is already registred';
+            logger.error(error);
+            throw new Error(error);
         }
         await next;
     }

@@ -1,17 +1,19 @@
 import mongorito from 'mongorito';
-import Joi from 'joi';
 import Logger from '../../utils/logger';
+import Joi from 'joi';
 
 const Model = mongorito.Model;
 const logger = new Logger();
 
+
 /**
  * Judge Model
  */
-class Judge extends Model {
+class Jub extends Model {
     configure () {
         this.setSchema();
         this.before('save', 'validate');
+        this.before('create', 'checkIfExists');
     }
 
     /**
@@ -20,8 +22,9 @@ class Judge extends Model {
     setSchema () {
         this.schema = Joi.object().keys({
             _id: Joi.string(),
-            name: Joi.string().trim().min(3).max(30).required(),
-            url: Joi.string().trim().uri(),
+            unique_key: Joi.string(),
+            name: Joi.string().min(3).max(30).required(),
+            description: Joi.string().min(3),
             created_at: Joi.date(),
             updated_at: Joi.date()
         });
@@ -42,8 +45,20 @@ class Judge extends Model {
         await next;
     }
 
-
+    /**
+     * Validate if the record exists throw a exception if this exists
+     * @param {function} next callback function
+     */
+    async checkIfExists(next) {
+        const hub = await Jub.where('unique_key', this.attributes.unique_key).findOne();
+        if (hub) {
+            const error = 'ValidationError:: The hub is already registred';
+            logger.error(error);
+            throw new Error(error);
+        }
+        await next;
+    }
 }
 
 
-module.exports = Judge;
+module.exports = Jub;

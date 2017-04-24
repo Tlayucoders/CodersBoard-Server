@@ -1,4 +1,5 @@
 import Judge from '../../../../models/judge';
+import User from '../../../../models/user';
 
 /**
  * @api {get} /api/v1/judges Request judges information
@@ -6,6 +7,7 @@ import Judge from '../../../../models/judge';
  * @apiGroup Judge
  *
  * @apiParam    {String}    x-access-token  Access token. No required if this is included in the Headers
+ *
  * @apiSuccess  {Object}    data                Response data
  * @apiSuccess  {Object[]}  data.judges         List fo judges
  * @apiSuccess  {String}    data.judges._id     Judge id
@@ -48,6 +50,70 @@ async function fetch(ctx) {
     }
 }
 
+/**
+ * @api {post} api/v1/judges/link  Link a judge account
+ * @apiName JudgeLink
+ * @apiGroup Judge
+ *
+ * @apiParam    {String}    x-access-token  Access token. No required if this is included in the Headers
+ * @apiParam    {string}    user_id    Id of the user registred in the Judge Online
+ * @apiParam    {string}    username   Username registred in the Judge Online
+ * @apiParam    {string}    judge_id   Id of the judge maped by this api
+ *
+ * @apiSuccess  (201) {Object}    data                         Response data
+ * @apiSuccess  (201) {Object[]}  data.judge_users             Juges Online accounts of the user
+ * @apiSuccess  (201) {String}    data.judge_users.user_id     User is in the Judge Online
+ * @apiSuccess  (201) {String}    data.judge_users.user_id     User id in the Judge Online
+ * @apiSuccess  (201) {String}    data.judge_users.judge_id    Judge Onlide id
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 201 Judge Account Linked
+ *
+ * @apiError UnprocessableEntity   There was a error with the input data
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 422 Unprocessable Entity
+ *     {
+ *       "Message error"
+ *     }
+ */
+async function link(ctx) {
+    const body = ctx.request.body;
+    try {
+        let user = await User.findById(ctx.user._id);
+
+        if (!user) {
+            throw new Error('User not Found');
+        }
+
+        const judge_users = user.get('judge_users') || [];
+        judge_users.push({
+            user_id: body.user_id,
+            username: body.username,
+            judge_id: body.judge_id
+        });
+        user.set('judge_users', judge_users);
+
+        if (user.set('registration_step') === 1) {
+            user.set('registration_step', 2);
+        }
+
+        await user.save();
+
+        user = JSON.parse(JSON.stringify(user));
+        ctx.status = 201;
+        ctx.message = 'Judge Account Linked';
+        ctx.body = {
+            data: {
+                judge_users: user.judge_users
+            }
+        };
+    } catch (e) {
+        ctx.logger.error(e);
+        ctx.throw(422, e);
+    }
+}
+
 module.exports = {
-    fetch
+    fetch,
+    link
 };
