@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import User from '../../models/user';
 
 /**
  * Middlewares for jwt authentication
@@ -10,6 +11,10 @@ async function auth(ctx, next) {
 
     try {
         const decoded = jwt.verify(access_token, process.env.APP_TOKEN);
+        const user = await User.findById(decoded.user._id);
+        if (!user) {
+            throw Error('User not Found');
+        }
         ctx.app.context.user = decoded.user;
     } catch (e) {
         ctx.logger.error(e);
