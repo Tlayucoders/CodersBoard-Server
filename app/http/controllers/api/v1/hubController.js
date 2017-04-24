@@ -1,7 +1,8 @@
 import Hub from '../../../../models/hub';
+import uniqueToken from '../../../../../utils/uniqueToken';
 
 /**
- * @api {get} /api/v1/hubs Request hubs information
+ * @api {post} /api/v1/hubs Request hubs information
  * @apiName GetHubs
  * @apiGroup Hub
  *
@@ -12,7 +13,9 @@ import Hub from '../../../../models/hub';
  * @apiSuccess  {Object}    data            Response data
  * @apiSuccess  {Object}    data.hub        Hub created
  * @apiSuccess  {String}    data.hub._id    Hub id
+ * @apiSuccess  {String}    data.hub.unique_key    Hub id
  * @apiSuccess  {String}    data.hub.name   Hub name
+ * @apiSuccess  {String}    data.hub.description   Hub description
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 201 Hub Registered
@@ -37,13 +40,10 @@ async function create(ctx) {
     const body = ctx.request.body;
     try {
         const hub = new Hub({
+            unique_key: uniqueToken(body.name),
             name: body.name,
             description: body.description
         });
-
-        if (await Hub.where('name', body.name).findOne()) {
-            throw new Error('Hub already exists');
-        }
 
         await hub.save();
 
