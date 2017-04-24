@@ -13,7 +13,7 @@ async function auth(ctx, next) {
         const decoded = jwt.verify(access_token, process.env.APP_TOKEN);
         const user = await User.findById(decoded.user._id);
         if (!user) {
-            throw Error('User not Found');
+            throw new Error('User not Found');
         }
         ctx.app.context.user = decoded.user;
     } catch (e) {
