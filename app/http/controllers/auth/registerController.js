@@ -44,7 +44,7 @@ async function register(ctx) {
     const body = ctx.request.body;
     try {
         let user = new User({
-            name: body.nam,
+            name: body.name,
             lastname: body.lastname,
             email: body.email,
             password: (body.password && body.password.trim().length > 5)?
