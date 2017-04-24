@@ -80,6 +80,11 @@ async function link(ctx) {
     const body = ctx.request.body;
     try {
         let user = await User.findById(ctx.user._id);
+
+        if (!user) {
+            throw new Error('User not Found');
+        }
+
         const judge_users = user.get('judge_users') || [];
         judge_users.push({
             user_id: (body.user_id)? body.user_id.trim() : undefined,
