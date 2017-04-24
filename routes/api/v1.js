@@ -1,5 +1,6 @@
 import UserController from '../../app/http/controllers/api/v1/userController';
 import JudgeController from '../../app/http/controllers/api/v1/judgeController';
+import HubController from '../../app/http/controllers/api/v1/hubController';
 import auth from '../../app/http/middlewares/auth';
 
 const API_PREFIX = '/api/v1';
@@ -13,6 +14,10 @@ function routeSetter(router) {
     router.get(`${API_PREFIX}/users`, auth, UserController.fetch);
     // judges
     router.get(`${API_PREFIX}/judges`, auth, JudgeController.fetch);
+    router.post(`${API_PREFIX}/judges/link`, auth, JudgeController.link);
+    // Hubs
+    router.post(`${API_PREFIX}/hubs`, auth, HubController.create);
+
 }
 
 module.exports = routeSetter;
