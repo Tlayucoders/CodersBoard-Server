@@ -1,11 +1,9 @@
 import mongorito from 'mongorito';
-import Ajv from 'ajv';
+import Joi from 'joi';
 import Logger from '../../utils/logger';
 
 const Model = mongorito.Model;
 const logger = new Logger();
-const ajv = new Ajv({ removeAdditional: true });
-
 
 /**
  * Judge Model
@@ -19,17 +17,12 @@ class Judge extends Model {
     }
 
     setSchema () {
-        this.schema = {
-            additionalProperties: false,
-            properties: {
-                name: {type: 'string', minLength: 1},
-                url: {type: 'string', minLength: 1}
-            },
-            required: [
-                'name',
-                'url'
-            ]
-        };
+        this.schema = Joi.object().keys({
+            name: Joi.string().trim().alphanum().min(3).max(30).required(),
+            url: Joi.string().trim().uri(),
+            created_at: Joi.date(),
+            updated_at: Joi.date()
+        });
     }
 
     async validate(next) {

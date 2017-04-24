@@ -37,11 +37,11 @@ async function create(ctx) {
     const body = ctx.request.body;
     try {
         const hub = new Hub({
-            name: (body.name)? body.name.trim(): undefined,
-            description: (body.description)? body.description.trim() : undefined
+            name: body.name,
+            description: body.description
         });
 
-        if (await Hub.where('name', body.name.trim()).findOne()) {
+        if (await Hub.where('name', body.name).findOne()) {
             throw new Error('Hub already exists');
         }
 

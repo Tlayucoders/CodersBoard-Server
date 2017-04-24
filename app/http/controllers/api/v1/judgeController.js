@@ -87,9 +87,9 @@ async function link(ctx) {
 
         const judge_users = user.get('judge_users') || [];
         judge_users.push({
-            user_id: (body.user_id)? body.user_id.trim() : undefined,
-            username: (body.username)? body.username.trim() : undefined,
-            judge_id: (body.judge_id)? body.judge_id: undefined
+            user_id: body.user_id,
+            username: body.username,
+            judge_id: body.judge_id
         });
         user.set('judge_users', judge_users);
 

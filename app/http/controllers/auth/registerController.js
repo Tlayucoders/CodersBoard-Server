@@ -44,12 +44,11 @@ async function register(ctx) {
     const body = ctx.request.body;
     try {
         let user = new User({
-            name: (body.name)? body.name.trim() : undefined,
-            lastname: (body.lastname)? body.lastname.trim() : undefined,
-            email: (body.email)? body.email.trim() : undefined,
-            password: (body.password)?
-                (body.password.trim().length > 5)? sha256(body.password.trim()) : body.password.trim()
-                : undefined,
+            name: body.nam,
+            lastname: body.lastname,
+            email: body.email,
+            password: (body.password && body.password.trim().length > 5)?
+                sha256(body.password.trim()) : body.password,
             registration_step: 1
         });
 
