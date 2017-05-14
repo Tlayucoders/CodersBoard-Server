@@ -1,3 +1,4 @@
+import { ObjectID } from 'mongorito';
 import Judge from '../../../../models/judge';
 import User from '../../../../models/user';
 
@@ -5,6 +6,8 @@ import User from '../../../../models/user';
  * @api {get} /api/v1/judges Request judges information
  * @apiName GetJudges
  * @apiGroup Judge
+ *
+ * @apiPermission user
  *
  * @apiParam    {String}    x-access-token  Access token. No required if this is included in the Headers
  *
@@ -51,9 +54,11 @@ async function fetch(ctx) {
 }
 
 /**
- * @api {post} api/v1/judges/link  Link a judge account
+ * @api {put} api/v1/judges/link  Link a judge account
  * @apiName JudgeLink
  * @apiGroup Judge
+ *
+ * @apiPermission user
  *
  * @apiParam    {String}    x-access-token  Access token. No required if this is included in the Headers
  * @apiParam    {string}    user_id    Id of the user registred in the Judge Online
@@ -61,7 +66,7 @@ async function fetch(ctx) {
  * @apiParam    {string}    judge_id   Id of the judge maped by this api
  *
  * @apiSuccess  (201) {Object}    data                         Response data
- * @apiSuccess  (201) {Object[]}  data.judge_users             Juges Online accounts of the user
+ * @apiSuccess  (201) {Object[]}  data.judge_users             Judges Online accounts of the user
  * @apiSuccess  (201) {String}    data.judge_users.user_id     User is in the Judge Online
  * @apiSuccess  (201) {String}    data.judge_users.user_id     User id in the Judge Online
  * @apiSuccess  (201) {String}    data.judge_users.judge_id    Judge Onlide id
@@ -79,32 +84,35 @@ async function fetch(ctx) {
 async function link(ctx) {
     const body = ctx.request.body;
     try {
-        let user = await User.findById(ctx.user._id);
+        const user = await User.findById(ctx.user._id);
+        const judge = await Judge.findById(body.judge_id);
 
         if (!user) {
             throw new Error('User not Found');
+        }
+        if (!judge) {
+            throw new Error('Judge not Found');
         }
 
         const judge_users = user.get('judge_users') || [];
         judge_users.push({
             user_id: body.user_id,
             username: body.username,
-            judge_id: body.judge_id
+            judge_id: ObjectID(body.judge_id)
         });
         user.set('judge_users', judge_users);
 
-        if (user.set('registration_step') === 1) {
+        if (user.get('registration_step') === 1) {
             user.set('registration_step', 2);
         }
 
         await user.save();
 
-        user = JSON.parse(JSON.stringify(user));
         ctx.status = 201;
         ctx.message = 'Judge Account Linked';
         ctx.body = {
             data: {
-                judge_users: user.judge_users
+                judge_users: judge_users
             }
         };
     } catch (e) {

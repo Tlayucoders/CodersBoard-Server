@@ -1,3 +1,2 @@
-system.log
-system-info.log
-system-error.log
+*
+!.gitignore

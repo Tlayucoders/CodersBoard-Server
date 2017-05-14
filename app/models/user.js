@@ -32,16 +32,16 @@ class User extends Model {
             is_active: Joi.boolean(),
             registration_step: Joi.number().integer().positive(),
             social_accounts: Joi.array().items(Joi.object().keys({
-                _id: Joi.string(),
                 provider_user_id: Joi.string().trim().min(3).required(),
                 provider_id: Joi.string().trim().min(3).required()
-            })),
+            })).unique((a, b) => a.provider_user_id === b.provider_user_id && a.provider_id === b.provider_id),
             judge_users: Joi.array().items(Joi.object().keys({
-                _id: Joi.string(),
                 user_id: Joi.string().trim().min(3).required(),
                 username: Joi.string().trim().min(3).required(),
                 judge_id: Joi.string().trim().min(3).required(),
-            })),
+            })).unique((a, b) => a.user_id === b.user_id && a.judge_id === b.judge_id),
+            hubs: Joi.array().items(Joi.string()).unique((a, b) => a === b),
+            teams: Joi.array().items(Joi.string()).unique((a, b) => a === b),
             created_at: [Joi.date(), Joi.string()],
             updated_at: [Joi.date(), Joi.string()]
         });

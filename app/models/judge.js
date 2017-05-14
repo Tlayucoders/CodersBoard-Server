@@ -22,8 +22,8 @@ class Judge extends Model {
             _id: Joi.string(),
             name: Joi.string().trim().min(3).max(30).required(),
             url: Joi.string().trim().uri(),
-            created_at: Joi.date(),
-            updated_at: Joi.date()
+            created_at: [Joi.date(), Joi.string()],
+            updated_at: [Joi.date(), Joi.string()]
         });
     }
 

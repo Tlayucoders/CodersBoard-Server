@@ -14,10 +14,10 @@ function routeSetter(router) {
     router.get(`${API_PREFIX}/users`, auth, UserController.fetch);
     // judges
     router.get(`${API_PREFIX}/judges`, auth, JudgeController.fetch);
-    router.post(`${API_PREFIX}/judges/link`, auth, JudgeController.link);
+    router.put(`${API_PREFIX}/judges/link`, auth, JudgeController.link);
     // Hubs
     router.post(`${API_PREFIX}/hubs`, auth, HubController.create);
-
+    router.patch(`${API_PREFIX}/hubs/:hub_id/link`, auth, HubController.link);
 }
 
 module.exports = routeSetter;

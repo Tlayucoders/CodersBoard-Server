@@ -9,7 +9,7 @@ const logger = new Logger();
 /**
  * Judge Model
  */
-class Jub extends Model {
+class Hub extends Model {
     configure () {
         this.setSchema();
         this.before('save', 'validate');
@@ -25,8 +25,8 @@ class Jub extends Model {
             unique_key: Joi.string(),
             name: Joi.string().min(3).max(30).required(),
             description: Joi.string().min(3),
-            created_at: Joi.date(),
-            updated_at: Joi.date()
+            created_at: [Joi.date(), Joi.string()],
+            updated_at: [Joi.date(), Joi.string()]
         });
     }
 
@@ -50,7 +50,7 @@ class Jub extends Model {
      * @param {function} next callback function
      */
     async checkIfExists(next) {
-        const hub = await Jub.where('unique_key', this.attributes.unique_key).findOne();
+        const hub = await Hub.where('unique_key', this.attributes.unique_key).findOne();
         if (hub) {
             const error = 'ValidationError:: The hub is already registred';
             logger.error(error);
@@ -61,4 +61,4 @@ class Jub extends Model {
 }
 
 
-module.exports = Jub;
+module.exports = Hub;
