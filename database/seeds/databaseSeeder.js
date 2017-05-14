@@ -18,6 +18,7 @@ async function seeder(Model, records) {
     try {
         for (const item of records) {
             const record = await new Model(item);
+            await record.save();
             logger.info('Record saved:', Model.name);
             logger.info(JSON.parse(JSON.stringify(record)));
         }
