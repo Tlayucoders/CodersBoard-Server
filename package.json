@@ -5,44 +5,31 @@
   "author": "esau.opr@gmail.com",
   "license": "MIT",
   "scripts": {
-    "start": "npm run babel-node ./index.js",
-    "develop": "nodemon --exec npm run babel-node ./index.js",
-    "babel-node": "babel-node --ignore='node_modules'",
-    "build": "babel . --out-dir dist --ignore node_modules,dist,storage,.git,.gitignore,apidoc,public --source-maps --copy-files",
+    "start": "node ./index.js",
+    "develop": "nodemon -L --exec node ./index.js",
     "token": "node ./utils/tokenGenerator.js",
-    "dbseed": "npm run babel-node ./database/seeds/databaseSeeder.js",
+    "dbseed": "node ./database/seeds/databaseSeeder.js",
     "docs": "apidoc -i ./app/http/controllers -o ./apidoc/"
   },
-  "babel": {
-    "presets": [
-      "env"
-    ],
-    "plugins": [
-      "transform-runtime"
-    ]
-  },
   "dependencies": {
-    "ajv": "^4.11.5",
     "cross-env": "^3.2.4",
     "dotenv": "^4.0.0",
-    "jsonwebtoken": "^7.3.0",
-    "kcors": "2",
+    "joi": "^10.6.0",
+    "jsonwebtoken": "^7.4.1",
+    "kcors": "^2.2.1",
     "koa": "^2.2.0",
-    "koa-bodyparser": "^4.1.0",
-    "koa-ejs": "^4.0.0",
-    "koa-jwt": "^3.0.0",
-    "koa-router": "next",
+    "koa-bodyparser": "^4.2.0",
+    "koa-jwt": "^3.2.2",
+    "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
     "mongorito": "^2.2.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
     "apidoc": "^0.17.5",
-    "babel-cli": "^6.24.0",
-    "babel-eslint": "6",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.2.2",
-    "eslint": "3.x",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
     "nodemon": "^1.11.0"
   }
 }
