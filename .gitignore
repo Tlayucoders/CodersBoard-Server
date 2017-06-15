@@ -80,11 +80,6 @@ bower_components
 *.swo
 
 # --------------------
-# Yarn files
-# --------------------
-yarn.lock
-
-# --------------------
 # Webapack
 # --------------------
 mix-manifest.json
