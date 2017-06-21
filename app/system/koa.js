@@ -1,11 +1,11 @@
-import Koa from 'koa';
-import KoaRouter from 'koa-router';
-import koaBodyParser from 'koa-bodyparser';
-import cors from 'kcors';
-import serve from 'koa-static';
+const Koa = require('koa');
+const KoaRouter = require('koa-router');
+const koaBodyParser = require('koa-bodyparser');
+const cors = require('kcors');
+const serve = require('koa-static');
 
-import loader from './../../utils/fileLoader';
-import Logger from './../../utils/logger';
+const loader = require('./../../utils/fileLoader');
+const Logger = require('./../../utils/logger');
 
 const logger = new Logger();
 
@@ -18,7 +18,7 @@ function loadRoutes(router, callback) {
     // Load URLs
     const routesPath = `${__dirname}/../../routes`;
     loader(routesPath, (routePath) => {
-        const routeSetter = require(routePath);
+        const routeSetter = require(routePath); // eslint-disable-line
         routeSetter(router);
     });
 
@@ -39,12 +39,12 @@ function init() {
     app.use(cors());
 
     // Expose public files
-    const publicDir = __dirname + '/../../public';
+    const publicDir = `${__dirname}/../../public`;
     logger.info('Exposing public directory:', publicDir);
     app.use(serve(publicDir));
 
     // x-response-time
-    app.use(async function (ctx, next) {
+    app.use(async (ctx, next) => {
         const start = new Date();
         await next();
         const ms = new Date() - start;
@@ -53,7 +53,7 @@ function init() {
     });
 
     // Logger
-    app.use(async function (ctx, next) {
+    app.use(async (ctx, next) => {
         const start = new Date();
         await next();
         const ms = new Date() - start;
@@ -71,4 +71,4 @@ function init() {
     });
 }
 
-export default init;
+module.exports = init;

@@ -1,5 +1,6 @@
-import jwt from 'jsonwebtoken';
-import User from '../../models/user';
+const jwt = require('jsonwebtoken');
+const User = require('../../models/user');
+const httpErrorhandler = require('../errors');
 
 /**
  * Middlewares for jwt authentication
@@ -7,18 +8,41 @@ import User from '../../models/user';
  * @param   {function}  next    Next middleware
  */
 async function auth(ctx, next) {
-    const access_token = ctx.request.body.access_token || ctx.headers['x-access-token'] || '';
-
+    const authorization = ctx.request.body.authorization || ctx.headers.authorization || ctx.headers['x-access-token'] || '';
+    if (!authorization) {
+        const message = 'Access token not Found';
+        ctx.logger.warn(message);
+        httpErrorhandler.responseError(ctx, httpErrorhandler.UNAUTHORIZED_ERROR, message);
+    }
+    // Check if is token type valid
+    const [bearer, accessToken] = authorization.trim().split(' ');
+    if (bearer !== 'Bearer') {
+        const message = 'Token must be a bearer type token';
+        ctx.logger.warn(message);
+        httpErrorhandler.responseError(ctx, httpErrorhandler.UNAUTHORIZED_ERROR, message);
+    }
+    // Decode the token
+    let decoded;
     try {
-        const decoded = jwt.verify(access_token, process.env.APP_TOKEN);
-        const user = await User.findById(decoded.user._id);
+        decoded = jwt.verify(accessToken, process.env.APP_TOKEN);
+    } catch (e) {
+        const message = e.message;
+        ctx.logger.warn(message);
+        httpErrorhandler.responseError(ctx, httpErrorhandler.UNAUTHORIZED_ERROR, message);
+    }
+    // Find the user and attach to the context
+    try {
+        const user = await User.findById(decoded.sub);
         if (!user) {
-            throw new Error('User not Found');
+            const message = 'User not Found';
+            ctx.logger.warn(message);
+            httpErrorhandler.responseError(ctx, httpErrorhandler.UNAUTHORIZED_ERROR, message);
         }
-        ctx.app.context.user = decoded.user;
+        ctx.app.context.user = user.toJSON();
+        ctx.user.id = ctx.user._id; // eslint-disable-line
     } catch (e) {
         ctx.logger.error(e);
-        ctx.throw(403,'Forbidden resource');
+        httpErrorhandler.responseError(ctx, httpErrorhandler.DB_ERROR, e);
     }
 
     await next();

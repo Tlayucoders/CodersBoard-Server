@@ -1,6 +1,5 @@
-import { ObjectID } from 'mongorito';
-import Judge from '../../../../models/judge';
-import User from '../../../../models/user';
+const Judge = require('../../../../models/judge');
+const User = require('../../../../models/user');
 
 /**
  * @api {get} /api/v1/judges Request judges information
@@ -9,7 +8,8 @@ import User from '../../../../models/user';
  *
  * @apiPermission user
  *
- * @apiParam    {String}    x-access-token  Access token. No required if this is included in the Headers
+ * @apiParam    {String}    x-access-token  Access token.
+ * No required if this is included in the Headers
  *
  * @apiSuccess  {Object}    data                Response data
  * @apiSuccess  {Object[]}  data.judges         List fo judges
@@ -21,12 +21,12 @@ import User from '../../../../models/user';
  *     HTTP/1.1 200 OK
  *     {
  *          "data": {
- *        	   "judges": [
- *        			{
- *        				"_id": "58d8b70c4a9f312d045bff35",
- *        				"name": "Uva Online Judge",
- *        				"url": "https://uva.onlinejudge.org/",
- *        			}
+ *             "judges": [
+ *                  {
+ *                      "_id": "58d8b70c4a9f312d045bff35",
+ *                      "name": "Uva Online Judge",
+ *                      "url": "https://uva.onlinejudge.org/",
+ *                  }
  *              ]
  *          }
  *     }

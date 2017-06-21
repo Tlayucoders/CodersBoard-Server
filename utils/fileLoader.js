@@ -1,4 +1,4 @@
-import fs from 'fs';
+const fs = require('fs');
 /**
  * Load every file in any directory
  * @param  {string} path

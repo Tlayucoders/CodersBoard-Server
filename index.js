@@ -1,17 +1,19 @@
 /**
  * Load environment variables
  */
-import Dotenv from 'dotenv'; Dotenv.config();
+const Dotenv = require('dotenv');
 
 /**
  * laod init db function
  */
-import { init } from './app/system/mongorito';
+const { init } = require('./app/system/mongoose');
 
 /**
  * Load init koa function
  */
-import koa from './app/system/koa';
+const koa = require('./app/system/koa');
+
+Dotenv.config();
 
 /**
  * Init the server

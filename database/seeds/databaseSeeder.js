@@ -1,13 +1,13 @@
 /**
  * Load environment variables
  */
-import Dotenv from 'dotenv'; Dotenv.config();
-
-import mongorito from 'mongorito';
-import judgeSeeder from './judgeDocumentSeeder';
-import Logger from '../../utils/logger';
+const Mongoose = require('mongoose');
+const Dotenv = require('dotenv');
+const Logger = require('../../utils/logger');
+const judgeSeeder = require('./judgeDocumentSeeder');
 
 const logger = new Logger();
+Dotenv.config()
 
 /**
  * Databse Seeder
@@ -32,13 +32,13 @@ async function seeder(Model, records) {
  */
 (async () => {
     try {
-        await mongorito.connect(process.env.MONGODB_URI);
+        await Mongoose.connect(process.env.MONGODB_URI);
         logger.info('Seeding database');
 
         await judgeSeeder(seeder);
 
         logger.info('Database seeded');
-        await mongorito.disconnect();
+        await Mongoose.disconnect();
     } catch (e) {
         logger.error(e);
     }

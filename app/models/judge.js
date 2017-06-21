@@ -1,49 +1,8 @@
-import mongorito from 'mongorito';
-import Joi from 'joi';
-import Logger from '../../utils/logger';
+const Mongoose = require('mongoose');
 
-const Model = mongorito.Model;
-const logger = new Logger();
+const judgeSchema = new Mongoose.Schema({
+    name: { type: String, trim: true, required: true },
+    url: { type: String, trim: true, required: true },
+}, { collection: 'judges', timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
-/**
- * Judge Model
- */
-class Judge extends Model {
-    configure () {
-        this.setSchema();
-        this.before('save', 'validate');
-    }
-
-    /**
-     * Model schema used to validations
-     */
-    setSchema () {
-        this.schema = Joi.object().keys({
-            _id: Joi.string(),
-            name: Joi.string().trim().min(3).max(30).required(),
-            url: Joi.string().trim().uri(),
-            created_at: [Joi.date(), Joi.string()],
-            updated_at: [Joi.date(), Joi.string()]
-        });
-    }
-
-    /**
-     * Validate the record attributes throw a exception if is invalid
-     * @param {function} next callback function
-     */
-    async validate(next) {
-        const ans = Joi.validate(JSON.parse(JSON.stringify(this.attributes)), this.schema, {
-            convert: false
-        });
-        if (ans.error) {
-            logger.warn(ans.error.toString());
-            throw new Error(ans.error.toString());
-        }
-        await next;
-    }
-
-
-}
-
-
-module.exports = Judge;
+module.exports = Mongoose.model('Judge', judgeSchema);

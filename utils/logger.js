@@ -9,12 +9,12 @@ let instance = null;
 class Logger {
     constructor() {
         if (!instance) {
-            instance = this.createInstance();
+            instance = Logger.createInstance();
         }
         return instance;
     }
 
-    createInstance() {
+    static createInstance() {
         const loggerInstance = new (winston.Logger)({
             transports: [
                 new (winston.transports.Console)({
@@ -22,10 +22,10 @@ class Logger {
                     timestamp: () => {
                         const date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
                         return date;
-                    }
+                    },
                 }),
-                new (winston.transports.File)({ filename: `${__dirname}/../storage/logs/system.log` })
-            ]
+                new (winston.transports.File)({ filename: `${__dirname}/../storage/logs/system.log` }),
+            ],
         });
         return loggerInstance;
     }
