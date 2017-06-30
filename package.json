@@ -9,7 +9,7 @@
     "develop": "nodemon -L --exec node ./index.js",
     "token": "node ./utils/tokenGenerator.js",
     "dbseed": "node ./database/seeds/databaseSeeder.js",
-    "docs": "apidoc -i ./app/http/controllers -o ./apidoc/"
+    "docs": "apidoc -i ./app/controllers -o ./apidoc/"
   },
   "dependencies": {
     "cross-env": "^3.2.4",
@@ -24,7 +24,7 @@
     "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
     "moment": "^2.18.1",
-    "mongoose": "^4.10.6",
+    "mongoose": "^4.10.8",
     "winston": "^2.3.1"
   },
   "devDependencies": {

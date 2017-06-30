@@ -6,8 +6,13 @@ const Dotenv = require('dotenv');
 const Logger = require('../../utils/logger');
 const judgeSeeder = require('./judgeDocumentSeeder');
 
+Mongoose.Promise = global.Promise;
+
 const logger = new Logger();
-Dotenv.config()
+Dotenv.config();
+
+/* eslint no-restricted-syntax: 0 */
+/* eslint no-await-in-loop: 0 */
 
 /**
  * Databse Seeder
@@ -17,7 +22,7 @@ Dotenv.config()
 async function seeder(Model, records) {
     try {
         for (const item of records) {
-            const record = await new Model(item);
+            const record = new Model(item);
             await record.save();
             logger.info('Record saved:', Model.name);
             logger.info(JSON.parse(JSON.stringify(record)));

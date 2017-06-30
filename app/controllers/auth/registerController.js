@@ -1,8 +1,8 @@
 const Joi = require('joi');
 const crypto = require('crypto');
 const { Controller, controllerLoader } = require('../controller');
-const User = require('../../../models/user');
-const sha256 = require('../../../../utils/sha256');
+const User = require('../../models/user');
+const sha256 = require('../../../utils/sha256');
 
 class RegisterController extends Controller {
     /**
@@ -17,13 +17,13 @@ class RegisterController extends Controller {
      * @apiParam    {String}    email       User email
      * @apiParam    {String}    password    User password
      *
-     * @apiSuccess  (201) {Object}    data                     Response data
-     * @apiSuccess  (201) {Object[]}  data.users               List fo users
-     * @apiSuccess  (201) {String}    data.users._id           User id
-     * @apiSuccess  (201) {String}    data.users.name          User name
-     * @apiSuccess  (201) {String}    data.users.lastname      User lastname
-     * @apiSuccess  (201) {String}    data.users.email         User email
-     * @apiSuccess  (201) {Integer}   data.users.registration_step    Registration step
+     * @apiSuccess  (Success 201) {Object}    data                     Response data
+     * @apiSuccess  (Success 201) {Object[]}  data.users               List fo users
+     * @apiSuccess  (Success 201) {String}    data.users._id           User id
+     * @apiSuccess  (Success 201) {String}    data.users.name          User name
+     * @apiSuccess  (Success 201) {String}    data.users.lastname      User lastname
+     * @apiSuccess  (Success 201) {String}    data.users.email         User email
+     * @apiSuccess  (Success 201) {Integer}   data.users.registration_step    Registration step
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 201 User Registered
@@ -47,12 +47,11 @@ class RegisterController extends Controller {
      *     }
      */
     async register(ctx) {
-        const body = ctx.request.body;
         let user;
         // Validations
-        const input = this.validator(ctx, body, Joi.object().keys({
-            name: Joi.string().trim().min(3).max(30).required(), // eslint-disable-line
-            lastname: Joi.string().trim().min(3).max(30).required(), // eslint-disable-line
+        const input = this.validator(ctx, Joi.object().keys({
+            name: Joi.string().trim().required(),
+            lastname: Joi.string().trim().required(),
             email: Joi.string().trim().email().required(),
             password: Joi.string().trim().min(6).required(),
         }));
@@ -60,11 +59,11 @@ class RegisterController extends Controller {
             user = await User.findOne({ email: input.email });
         } catch (error) {
             ctx.logger.error(error);
-            this.responseError(ctx, this.httpErrors.DB_ERROR, error);
+            this.responseError(ctx, this.httpErrorHandler.DB_ERROR, error);
         }
         if (user) {
             const message = 'The user is already registered';
-            this.responseError(ctx, this.httpErrors.VALIDATION_ERROR, message);
+            this.responseError(ctx, this.httpErrorHandler.VALIDATION_ERROR, message);
         }
         // Create user
         user = new User({
@@ -72,7 +71,6 @@ class RegisterController extends Controller {
             lastname: input.lastname,
             email: input.email,
             password: sha256(input.password),
-            registration_step: 1,
             verification_token: crypto.randomBytes(48).toString('hex'),
         });
 

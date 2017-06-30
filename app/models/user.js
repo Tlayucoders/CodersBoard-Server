@@ -18,10 +18,10 @@ const userSchema = new Mongoose.Schema({
     password: { type: String, trim: true, required: true },
     verification_token: { type: String, trim: true, required: true },
     is_active: { type: Boolean, default: false, required: true },
-    registration_step: { type: Number, default: 0, required: true },
     social_accounts: [socialAccountSchema],
     judge_users: [JudgeUserSchema],
-    hubs: { type: Mongoose.Schema.Types.ObjectId, ref: 'Hub' },
+    role: { type: Mongoose.Schema.Types.ObjectId, ref: 'Role' },
+    hubs: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Hub' }],
     teams: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Teams' }],
 }, { collection: 'users', timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 

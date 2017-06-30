@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const GoogleAuth = require('google-auth-library');
 const Joi = require('joi');
 const { Controller, controllerLoader } = require('../controller');
-const User = require('../../../models/user');
-const sha256 = require('../../../../utils/sha256');
+const User = require('../../models/user');
+const sha256 = require('../../../utils/sha256');
 
 class LoginController extends Controller {
     /**
@@ -32,6 +32,29 @@ class LoginController extends Controller {
                     resolve(payload);
                 }
             });
+        });
+    }
+
+    /**
+     * Generate the token for a user
+     * @param  {Object}  ctx  Koa context
+     * @param  {Object}  user [description]
+     */
+    async generateToken(ctx, user) {
+        // Generate token
+        const accessToken = jwt.sign({
+            sub: user.id,
+            email: user.email,
+        }, process.env.APP_TOKEN, { expiresIn: '1d' });
+        const decoded = jwt.decode(accessToken);
+
+        this.responseSuccess(ctx, {
+            data: {
+                access_token: accessToken,
+                iat: decoded.iat,
+                exp: decoded.exp,
+                email: decoded.email,
+            },
         });
     }
 
@@ -83,21 +106,8 @@ class LoginController extends Controller {
             ctx.logger.warn(message);
             this.responseError(ctx, this.httpErrors.NOT_FOUND_ERROR, message);
         }
-        // Generate token
-        const accessToken = jwt.sign({
-            sub: user.id,
-            email: user.email,
-        }, process.env.APP_TOKEN, { expiresIn: '1d' });
-        const decoded = jwt.decode(accessToken);
 
-        this.responseSuccess(ctx, {
-            data: {
-                access_token: accessToken,
-                iat: decoded.iat,
-                exp: decoded.exp,
-                email: decoded.email,
-            },
-        });
+        return this.generateToken(ctx, user);
     }
 }
 

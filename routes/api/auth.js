@@ -1,5 +1,5 @@
-const LoginController = require('../../app/http/controllers/auth/loginController');
-const RegisterController = require('../../app/http/controllers/auth/registerController');
+const LoginController = require('../../app/controllers/auth/loginController');
+const RegisterController = require('../../app/controllers/auth/registerController');
 
 /**
  * Set the routes defined inside

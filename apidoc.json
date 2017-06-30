@@ -1,7 +1,7 @@
 {
-  "name": "CodersBoard API Docs",
-  "version": "0.1.0",
+  "name": "Hubble API Docs",
+  "version": "0.0.0",
   "description": "API Documentation",
-  "title": "CodersBoard API Docs",
-  "url" : ""
+  "title": "Hubble API Docs",
+  "url" : "https://api.hubble.tk"
 }

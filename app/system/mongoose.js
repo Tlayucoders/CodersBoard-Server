@@ -2,10 +2,10 @@ const Mongoose = require('mongoose');
 const Logger = require('../../utils/logger');
 const fileLoader = require('../../utils/fileLoader');
 
-// const { softDelete } = require('./mongoosePlugins');
+const { softDelete } = require('./mongoosePlugins');
 
 Mongoose.Promise = global.Promise;
-// Mongoose.plugin(softDelete);
+Mongoose.plugin(softDelete);
 
 const logger = new Logger();
 

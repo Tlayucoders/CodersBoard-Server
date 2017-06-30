@@ -1,4 +1,4 @@
-import Judge from '../../app/models/judge';
+const Judge = require('../../app/models/judge');
 
 /**
  * Register the new records and send this to seed
@@ -8,11 +8,11 @@ async function boot(seeder) {
     const judges = [];
     judges.push({
         name: 'Uva Online Judge',
-        url: 'https://uva.onlinejudge.org'
+        url: 'https://uva.onlinejudge.org',
     });
     judges.push({
         name: 'Caribbean Online Judge',
-        url: 'https://coj.uci.cu/index.xhtml'
+        url: 'https://coj.uci.cu/index.xhtml',
     });
 
     await seeder(Judge, judges);
