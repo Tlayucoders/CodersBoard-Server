@@ -3,7 +3,7 @@ const JudgeController = require('../../app/controllers/api_v1/judgeController');
 const HubController = require('../../app/controllers/api_v1/hubController');
 const auth = require('../../app/middlewares/auth');
 
-const API_PREFIX = '/api/v1';
+const API_PREFIX = '/v1';
 
 /**
  * Set the routes defined inside
