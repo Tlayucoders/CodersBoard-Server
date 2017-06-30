@@ -8,7 +8,7 @@ class RegisterController extends Controller {
     /**
      * @api {post} /register Register  new user
      * @apiName UserRegistration
-     * @apiGroup User
+     * @apiGroup Auth
      *
      * @apiPermission user
      *

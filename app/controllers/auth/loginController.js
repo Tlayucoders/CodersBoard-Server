@@ -61,7 +61,7 @@ class LoginController extends Controller {
     /**
      * @api {post} /login User Login
      * @apiName UserLogin
-     * @apiGroup User
+     * @apiGroup Auth
      *
      * @apiPermission none
      *

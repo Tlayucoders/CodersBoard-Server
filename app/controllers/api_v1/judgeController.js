@@ -10,8 +10,7 @@ class JudgesController extends Controller {
      *
      * @apiPermission user | admin
      *
-     * @apiParam    {String}    x-access-token  Access token.
-     * No required if this is included in the Headers
+     * @apiHeader {String}  x-access-token  Access token
      *
      * @apiSuccess  {Object}    data                Response data
      * @apiSuccess  {Object[]}  data.judges         List fo judges

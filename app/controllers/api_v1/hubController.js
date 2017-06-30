@@ -219,7 +219,6 @@ class HubController extends Controller {
      *
      * @apiHeader {String}  x-access-token  Access token
      *
-     * @apiUse HubInputData
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 204 Hub Deleted
