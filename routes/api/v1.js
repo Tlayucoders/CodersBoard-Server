@@ -19,7 +19,6 @@ function routeSetter(router) {
     router.get(`${API_PREFIX}/hubs`, auth, HubController('fetch'));
     router.post(`${API_PREFIX}/hubs`, auth, HubController('create'));
     router.put(`${API_PREFIX}/hubs/:hub_id`, auth, HubController('update'));
-    router.delete(`${API_PREFIX}/hubs/:hub_id`, auth, HubController('delete'));
     router.get(`${API_PREFIX}/hubs/:hub_id/users`, auth, HubController('getUsers'));
     // User
     router.patch(`${API_PREFIX}/users/:user_id/hubs/:hub_id`, auth, HubController('linkHub'));

@@ -211,52 +211,6 @@ class HubController extends Controller {
     }
 
     /**
-     * @api {delete} /v1/hubs/:hub_id Delete a hub
-     * @apiName DeleteHub
-     * @apiGroup Hub
-     *
-     * @apiPermission user | admin
-     *
-     * @apiHeader {String}  x-access-token  Access token
-     *
-     *
-     * @apiSuccessExample Success-Response:
-     *     HTTP/1.1 204 Hub Deleted
-     *
-     * @apiError UnprocessableEntity   There was a error with the input data
-     * @apiErrorExample {json} Error-Response:
-     *     HTTP/1.1 422 Unprocessable Entity
-     *     {
-     *       "Message error"
-     *     }
-     */
-    async delete(ctx) {
-        const params = ctx.params;
-        this.validateIds(ctx, params, ['hub_id']);
-        // validate if hub exists
-        const hub = await this.findById(ctx, Hub, params.hub_id);
-        // Validate that the hub is empty
-        let users;
-        try {
-            users = await User.find({ hubs: params.hub_id });
-        } catch (error) {
-            ctx.logger.error(error);
-            this.responseError(ctx, this.httpErrorHandler.DB_ERROR, error);
-        }
-        if (users.length) {
-            const message = 'The hub have users actives';
-            this.responseError(ctx, this.httpErrorHandler.VALIDATION_ERROR, message);
-        }
-        // Delete the hub
-        await hub.remove();
-
-        this.responseSuccess(ctx, {
-            status: 204,
-            message: 'Hub deleted',
-        });
-    }
-
-    /**
      * @api {get} /v1/hubs/:hub_id/users Request users information by Hub
      * @apiName GetUsers
      * @apiGroup Hub
